@@ -46,7 +46,7 @@ table options:
 -s num_segs         # segments reduce resource usage default: 1
 -e max_errors       # default: unlimited
 
-Both tables require primary keys.  Table 'a' needs to be analyzed.
+Tables require primary keys.
 
 ```
 #### Utility Output:

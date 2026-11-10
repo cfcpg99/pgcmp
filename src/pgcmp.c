@@ -284,7 +284,7 @@ static void usage(void)
  fprintf(stderr, "  -s num_segs         # segments reduce resource usage default: %d\n", DEF_TD_SEGMENTS);
  fprintf(stderr, "  -e max_errors       # default: unlimited\n");
  fprintf(stderr, "  \n");
- fprintf(stderr, "  Both tables require primary keys.  Table 'a' needs to be analyzed.\n");
+ fprintf(stderr, "  Tables require primary keys.\n");
  fprintf(stderr, "\n");
 
  fprintf(stderr, "Utility Output:\n");
