@@ -17,6 +17,7 @@ TARGET_DEPS := $(PGCMP_HOME)/Makefile $(wildcard $(PGCMP_HOME)/include/*.h)
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
+	@mkdir -p $(PGCMP_HOME)/bin
 	$(CC) $(LDFLAGS) -o $(TARGET) $(OBJ) $(LIBS) 
 
 $(OBJ):  $(TARGET_DEPS)
