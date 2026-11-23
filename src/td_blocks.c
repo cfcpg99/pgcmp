@@ -325,7 +325,7 @@ TRACE_IN(1)
               gv.table_desc.col_names,
               g_a_target.object,
               gv.table_desc.pk_col_names,
-              gv.td_segment.block[i].end_key);
+              gv.td_segment.block[gv.td_segment.error_list[i]].end_key);
   
       sprintf(g_b_target.worker[j++].sql, 
               "select row(%s) pk, row(%s) data from %s where row(%s) <= row(%s)",
@@ -333,9 +333,10 @@ TRACE_IN(1)
               gv.table_desc.col_names,
               g_b_target.object,
               gv.table_desc.pk_col_names,
-              gv.td_segment.block[i].end_key);
+              gv.td_segment.block[gv.td_segment.error_list[i]].end_key);
    }
-   else if (i +1 == gv.td_segment.block_count) 
+   // else if (i +1 == gv.td_segment.error_block_count) 
+   else if (gv.td_segment.block[gv.td_segment.error_list[i]].id +1 == gv.td_segment.block_count) 
    {
       // last block
       sprintf(g_a_target.worker[j].sql, 
@@ -344,7 +345,7 @@ TRACE_IN(1)
               gv.table_desc.col_names,
               g_a_target.object,
               gv.table_desc.pk_col_names,
-              gv.td_segment.block[i].start_key);
+              gv.td_segment.block[gv.td_segment.error_list[i]].start_key);
       
       sprintf(g_b_target.worker[j++].sql, 
               "select row(%s) pk, row(%s) data from %s where row(%s) > row(%s)",
@@ -352,7 +353,7 @@ TRACE_IN(1)
               gv.table_desc.col_names,
               g_b_target.object,
               gv.table_desc.pk_col_names,
-              gv.td_segment.block[i].start_key);
+              gv.td_segment.block[gv.td_segment.error_list[i]].start_key);
    }
    else
    {  
@@ -363,9 +364,9 @@ TRACE_IN(1)
               gv.table_desc.col_names,
               g_a_target.object,
               gv.table_desc.pk_col_names,
-              gv.td_segment.block[i].start_key,
+              gv.td_segment.block[gv.td_segment.error_list[i]].start_key,
               gv.table_desc.pk_col_names,
-              gv.td_segment.block[i].end_key);
+              gv.td_segment.block[gv.td_segment.error_list[i]].end_key);
  
       sprintf(g_b_target.worker[j++].sql, 
               "select row(%s) pk, row(%s) data from %s where row(%s) >= row(%s) and row(%s) < row(%s)",
@@ -373,9 +374,9 @@ TRACE_IN(1)
               gv.table_desc.col_names,
               g_b_target.object,
               gv.table_desc.pk_col_names,
-              gv.td_segment.block[i].start_key,
+              gv.td_segment.block[gv.td_segment.error_list[i]].start_key,
               gv.table_desc.pk_col_names,
-              gv.td_segment.block[i].end_key);
+              gv.td_segment.block[gv.td_segment.error_list[i]].end_key);
    }
  }
 

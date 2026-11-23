@@ -14,6 +14,7 @@ typedef struct                       // table diff
   int32_t b_block_rows;              // b row count
   int32_t b_not_found;               // exists in b not a
   int32_t errors;                    // error count
+  int32_t id;                        // block id
   int32_t not_ok;                    // fail count
   int32_t ok;                        // success count
 } block_t;

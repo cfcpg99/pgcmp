@@ -15,6 +15,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <sysexits.h>
+#include <sys/param.h>
 #include <sys/resource.h>
 
 #include "pq.h"

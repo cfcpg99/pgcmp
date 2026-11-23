@@ -24,6 +24,7 @@ TRACE_IN(1)
 
  for(i = 0; i < gv.td_segment.block_count; i++)
  {
+    gv.td_segment.block[i].id = i;
     if (i == 0)
     {
        // first

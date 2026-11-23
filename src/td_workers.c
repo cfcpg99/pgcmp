@@ -432,10 +432,7 @@ WTRACE_IN(0)
        sizeof(key_data_t), 
        pkey_cmp);
 
- //fprintf(stderr, "A l_worker->num_tuples  %d gv.td_error_count %lu gv.td_max_errors+1 %lu\n",
- //        l_worker->num_tuples,  gv.td_error_count,  gv.td_max_errors);
-
- for(i = 0; i < l_worker->num_tuples && gv.td_error_count < gv.td_max_errors; i++)
+ for(i = 0; i < g_a_target.worker[l_worker->id].key_rows && gv.td_error_count < gv.td_max_errors; i++)
  {
     l_key_data.pk_data = l_a_key_data->pk_data;
 
@@ -501,10 +498,7 @@ WTRACE_OUT(0)
        sizeof(key_data_t),    
        pkey_cmp);
 
-//  fprintf(stderr, "B l_worker->num_tuples  %d gv.td_error_count %lu gv.td_max_errors+1 %lu\n",
-//         l_worker->num_tuples,  gv.td_error_count,  gv.td_max_errors);
- 
- for(i = 0; i < l_worker->num_tuples && gv.td_error_count < gv.td_max_errors; i++)
+ for(i = 0; i < g_b_target.worker[l_worker->id].key_rows && gv.td_error_count < gv.td_max_errors; i++)
  {
     l_key_data.pk_data = l_b_key_data->pk_data;
 

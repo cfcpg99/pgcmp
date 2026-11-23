@@ -160,23 +160,22 @@ TRACE_IN(1)
        PQclear(g_b_target.worker[j].rset);
     }
 
-    // increment to next batch
+    // increment to next thread batch
     i += gv.td_segment.cpus;
  }
 
+ gv.td_segment.error_block_count = 0;
  l_block = gv.td_segment.block;
- for(i = 0, j = 0; i < gv.td_segment.block_count; i++)
+ for(i = 0; i < gv.td_segment.block_count; i++)
  {
     if (l_block->errors != 0)
     {
        // add to list of error blocks
-       gv.td_segment.error_list[j]  = i;
-       j++;
+       gv.td_segment.error_list[gv.td_segment.error_block_count]  = i;
+       gv.td_segment.error_block_count++;
     }
     l_block++;
  }
-  
- gv.td_segment.error_block_count = j;
 
  if (g_flags & DBG_TIMING_FLG)
  {
@@ -204,9 +203,9 @@ TRACE_IN(1)
  i = 0;
 
  // loop through error_blocks by cpu set_size
- while(i < gv.td_segment.block_count) 
+ while(i < gv.td_segment.error_block_count) 
  {
-    l_last += gv.td_segment.cpus;
+    l_last += MIN(gv.td_segment.cpus, gv.td_segment.error_block_count -i);
 
     if (g_flags & DBG_TIMING_FLG)
     {
@@ -216,7 +215,7 @@ TRACE_IN(1)
     // get error block row data
     if ((g_flags & SMALL_TABLE_FLG) == 0)
     { 
-       get_error_blocks(i, l_last );
+       get_error_blocks(i, l_last);
     }
     else
     {
